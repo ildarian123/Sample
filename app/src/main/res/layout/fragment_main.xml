@@ -88,6 +88,7 @@
         android:layout_marginHorizontal="8dp"
         android:layout_marginBottom="8dp"
         android:id="@+id/rv_transactions"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/transaction_list_item"
         app:layout_constraintTop_toBottomOf="@id/settings_text_view"
         app:layout_constraintStart_toStartOf="parent"

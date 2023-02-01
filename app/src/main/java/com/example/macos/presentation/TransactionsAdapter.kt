@@ -1,56 +1,49 @@
 package com.example.macos.presentation
 
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.macos.R
+import com.example.macos.databinding.TransactionListItemBinding
 import com.example.macos.domain.models.Transaction
-import com.squareup.picasso.Picasso
 
-class TransactionsAdapter(val collection: MutableList<Transaction>, val clickListener: (Transaction) -> Unit) :
-    RecyclerView.Adapter<TransactionsAdapter.ListOfTransactionsHolder>() {
+class TransactionsAdapter(var transactionList: List<Transaction>,
+) : RecyclerView.Adapter<TransactionsAdapter.ViewHolder>() {
 
-    inner class ListOfTransactionsHolder(itemView: View, clickAtPosition: (Int) -> Unit) :
-        RecyclerView.ViewHolder(itemView) {
-        private val category_image_view =
-            itemView.findViewById<ImageView>(R.id.category_image_view)
-        private val merchant_text_view =
-            itemView.findViewById<TextView>(R.id.merchant_text_view)
-        private val amount_text_view =
-            itemView.findViewById<TextView>(R.id.amount_text_view)
-        private val status_text_view =
-            itemView.findViewById<TextView>(R.id.status_text_view)
+    // create an inner class with name ViewHolder
+    // It takes a view argument, in which pass the generated class of single_item.xml
+    // ie SingleItemBinding and in the RecyclerView.ViewHolder(binding.root) pass it like this
+    inner class ViewHolder(val binding: TransactionListItemBinding) : RecyclerView.ViewHolder(binding.root)
 
-        init {
-            itemView.setOnClickListener {
+    // inside the onCreateViewHolder inflate the view of SingleItemBinding
+    // and return new ViewHolder object containing this layout
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = TransactionListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        Log.v("transaq", "onCreateViewHolder ")
+        return ViewHolder(binding)
+    }
+
+    // bind the items with each item
+    // of the list languageList
+    // which than will be
+    // shown in recycler view
+    // to keep it simple we are
+    // not setting any image data to view
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        with(holder){
+            with(transactionList[position]){
+                Log.v("transaq", "onBindViewHolder ")
+                binding.merchantTextView.text = this.merchand
+                binding.amountTextView.text = this.amount.toString()
+//                 binding.categoryImageView.text = this.
+                binding.statusTextView.text = this.category
             }
         }
-
-        internal fun bind(item: Transaction) {
-            Picasso.get().load(R.drawable.ic_setting).into(category_image_view)
-            merchant_text_view.text = item.merchand
-            amount_text_view.text = item.amount.toString()
-            status_text_view.text = item.currency
-        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListOfTransactionsHolder {
-        val v = LayoutInflater.from(parent.context)
-            .inflate(R.layout.transaction_list_item, parent, false)
-        return ListOfTransactionsHolder(v) {
-            clickListener(collection[it])
-        }
-    }
-
+    // return the size of languageList
     override fun getItemCount(): Int {
-        return collection.size
+        Log.v("transaq", "transactionList.size "+ transactionList.size)
+        return transactionList.size
     }
-
-    override fun onBindViewHolder(holder: ListOfTransactionsHolder, position: Int) {
-        holder.bind(collection[position])
-    }
-
 }

@@ -46,11 +46,11 @@ class MainFragment : Fragment() {
 
             val manager:RecyclerView.LayoutManager =
                 LinearLayoutManager(context)
-            binding.rvTransactions.layoutManager = manager
-            binding.rvTransactions.adapter = TransactionsAdapter(vm.transactions.value?: mutableListOf()) {
-                Log.d("network", "clicked")
-            }
+            val adapter = TransactionsAdapter(vm.transactions.value?: listOf())
 
+            Log.v("transaq", vm.transactions.value.toString())
+            binding.rvTransactions.layoutManager = manager
+            binding.rvTransactions.adapter = adapter
         }
     }
 }
