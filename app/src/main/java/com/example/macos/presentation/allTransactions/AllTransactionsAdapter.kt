@@ -1,32 +1,30 @@
-package com.example.macos.presentation.main.adapter
+package com.example.macos.presentation.allTransactions
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.macos.R
+import com.example.macos.databinding.FragmentAllTransactionsBinding
 import com.example.macos.databinding.TransactionListItemBinding
 import com.example.macos.domain.models.Transaction
+import com.example.macos.presentation.main.adapter.ClickListener
 
-class TransactionsAdapter(var transactionList: List<Transaction>, val clickListener: ClickListener,
-                          val positionListener:PositionListener
-) : RecyclerView.Adapter<TransactionsAdapter.ViewHolder>() {
-
+class AllTransactionsAdapter(var transactionList: List<Transaction>, val clickListener: ClickListener
+) : RecyclerView.Adapter<AllTransactionsAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: TransactionListItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = TransactionListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        Log.v("transaq", "onCreateViewHolder ")
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (position == transactionList.size - 1) {
-            positionListener.onLastItemShown(position)
-        }
-
-
         with(holder){
             with(transactionList[position]){
+                Log.v("transaq", "onBindViewHolder ")
                 if (this.category.equals("transport")) {
                     binding.categoryImageView.setImageResource(R.drawable.ic_transport)
                 }else if (this.category.equals("shopping")) {
@@ -47,6 +45,7 @@ class TransactionsAdapter(var transactionList: List<Transaction>, val clickListe
     }
 
     override fun getItemCount(): Int {
+        Log.v("transaq", "transactionList.size "+ transactionList.size)
         return transactionList.size
     }
 }

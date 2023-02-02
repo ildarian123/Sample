@@ -13,11 +13,34 @@
             android:id="@+id/action_main_fragment_to_transaction_details_fragment"
             app:destination="@id/fragment_transaction_details">
         </action>
+
+        <action
+            android:id="@+id/action_main_fragment_to_all_transaction_details_fragment"
+            app:destination="@id/fragment_all_transactions">
+        </action>
     </fragment>
 
     <fragment
         android:id="@+id/fragment_transaction_details"
         android:name="com.example.macos.presentation.transaction.TransactionDetailsFragment"
         tools:layout="@layout/fragment_transaction_details">
+
+        <argument
+            android:name="transaction"
+            app:argType="com.example.macos.domain.models.Transaction"
+            app:nullable="false"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/fragment_all_transactions"
+        android:name="com.example.macos.presentation.allTransactions.AllTransactionsFragment"
+        tools:layout="@layout/fragment_transaction_details">
+
+        <action
+            android:id="@+id/all_transaction_details_fragment_to_fragment_transaction_details"
+            app:destination="@id/fragment_transaction_details">
+        </action>
+
     </fragment>
 </navigation>
