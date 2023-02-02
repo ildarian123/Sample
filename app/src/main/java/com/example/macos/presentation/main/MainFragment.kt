@@ -72,6 +72,7 @@ class MainFragment : Fragment(), ClickListener, PositionListener {
 
     private fun setObservers() {
         vm.cards.observe(viewLifecycleOwner) {
+            binding.rvCards.onFlingListener = null
             LinearSnapHelper().attachToRecyclerView(binding.rvCards)
             val cardsAdapter = CardsAdapter(it)
             val manager:RecyclerView.LayoutManager =
