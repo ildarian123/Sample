@@ -23,7 +23,6 @@ import com.example.macos.presentation.main.adapter.PositionListener
 import com.example.macos.presentation.main.adapter.TransactionsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class MainFragment : Fragment(), ClickListener, PositionListener {
 
@@ -58,10 +57,10 @@ class MainFragment : Fragment(), ClickListener, PositionListener {
         }
 
         binding.lockImageView.setOnClickListener {
-            Toast.makeText(requireContext(), "Lock card", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.lock_card), Toast.LENGTH_SHORT).show()
         }
         binding.settingImageView.setOnClickListener {
-            Toast.makeText(requireContext(), "Settings", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.settings), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -87,14 +86,13 @@ class MainFragment : Fragment(), ClickListener, PositionListener {
                 LinearLayoutManager(activity)
             mAdapter = TransactionsAdapter(transactionsData.subList(0,19), clickListener = this, this)
 
-            Log.v("transaq", transactionsData.toString())
             binding.rvTransactions.layoutManager = manager
             binding.rvTransactions.adapter = mAdapter
         }
     }
 
     override fun onClick(transaction: Transaction) {
-        val bundle = bundleOf(Pair("transaction", transaction))
+        val bundle = bundleOf(Pair(getString(R.string.transaction), transaction))
         navController.navigate(
             R.id.action_main_fragment_to_transaction_details_fragment,
             bundle
