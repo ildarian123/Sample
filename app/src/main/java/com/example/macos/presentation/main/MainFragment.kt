@@ -7,20 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.macos.R
 import com.example.macos.databinding.FragmentMainBinding
 import com.example.macos.domain.models.Transaction
+import com.example.macos.presentation.main.adapter.CardsAdapter
 import com.example.macos.presentation.main.adapter.ClickListener
 import com.example.macos.presentation.main.adapter.PositionListener
 import com.example.macos.presentation.main.adapter.TransactionsAdapter
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainFragment : Fragment(), ClickListener, PositionListener {
@@ -70,8 +72,14 @@ class MainFragment : Fragment(), ClickListener, PositionListener {
 
     private fun setObservers() {
         vm.cards.observe(viewLifecycleOwner) {
-            Log.d("network", it.toString())
+            LinearSnapHelper().attachToRecyclerView(binding.rvCards)
+            val cardsAdapter = CardsAdapter(it)
+            val manager:RecyclerView.LayoutManager =
+                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, true)
+            binding.rvCards.layoutManager = manager
+            binding.rvCards.adapter = cardsAdapter
         }
+
         vm.transactions.observe(viewLifecycleOwner) {
             transactionsData = vm.transactions.value?: listOf()
             val manager:RecyclerView.LayoutManager =
