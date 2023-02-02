@@ -6,6 +6,15 @@ import javax.inject.Inject
 
 class GetTransactionsUseCase @Inject constructor(private val dataRepository: DataRepositoryImpl) {
     suspend fun execute(): List<Transaction> {
-        return dataRepository.getPendingTransactions()
+        val listPending = dataRepository.getPendingTransactions()
+        listPending.forEach {
+            it.status = "Pending"
+        }
+
+        val listExecuted = dataRepository.getExecutedTransactions()
+        listExecuted.forEach {
+            it.status = "Executed"
+        }
+        return listPending + listExecuted
     }
 }

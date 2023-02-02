@@ -5,15 +5,19 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/fragment_main">
 
-
     <fragment
         android:id="@+id/fragment_main"
-        android:name="com.example.macos.presentation.MainFragment"
+        android:name="com.example.macos.presentation.main.MainFragment"
         tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_events_list_fragment_to_event_details_fragment"
-            app:destination="@id/fragment_main">
+            android:id="@+id/action_main_fragment_to_transaction_details_fragment"
+            app:destination="@id/fragment_transaction_details">
         </action>
+    </fragment>
 
+    <fragment
+        android:id="@+id/fragment_transaction_details"
+        android:name="com.example.macos.presentation.transaction.TransactionDetailsFragment"
+        tools:layout="@layout/fragment_transaction_details">
     </fragment>
 </navigation>

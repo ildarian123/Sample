@@ -1,4 +1,4 @@
-package com.example.macos.presentation
+package com.example.macos.presentation.main
 
 import android.os.Bundle
 import android.util.Log
@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.macos.R
 import com.example.macos.databinding.FragmentMainBinding
+import com.example.macos.presentation.main.adapter.TransactionsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +24,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMainBinding.inflate(layoutInflater)
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,12 +45,13 @@ class MainFragment : Fragment() {
         vm.transactions.observe(viewLifecycleOwner) {
 
             val manager:RecyclerView.LayoutManager =
-                LinearLayoutManager(context)
-            val adapter = TransactionsAdapter(vm.transactions.value?: listOf())
+                LinearLayoutManager(activity)
+            val mAdapter = TransactionsAdapter(it?: listOf())
 
             Log.v("transaq", vm.transactions.value.toString())
             binding.rvTransactions.layoutManager = manager
-            binding.rvTransactions.adapter = adapter
+            binding.rvTransactions.adapter = mAdapter
+            mAdapter.notifyDataSetChanged()
         }
     }
 }

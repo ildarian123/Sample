@@ -10,5 +10,6 @@ data class Transaction(
     val category: String? = null,
     val amount: Int? = null,
     val currency: String? = null,
-    val timestamp: Int? = null
+    val timestamp: Int? = null,
+    var status: String? = null
 ): Parcelable

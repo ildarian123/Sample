@@ -1,4 +1,4 @@
-package com.example.macos.presentation
+package com.example.macos.presentation.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

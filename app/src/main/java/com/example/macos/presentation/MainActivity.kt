@@ -2,11 +2,9 @@ package com.example.macos.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
-import androidx.lifecycle.lifecycleScope
-import com.example.macos.R
 import com.example.macos.databinding.ActivityMainBinding
+import com.example.macos.presentation.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
